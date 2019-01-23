@@ -307,7 +307,7 @@ public class GestorDeProyectos extends JFrame {
 		lblOnline.setBounds(10, 15, 177, 14);
 		desktopPane.add(lblOnline);
 		try {
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory("pruebas");
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
 			EntityManager entityManager = factory.createEntityManager();
 			
 			lblOnline.setText("Estado: Online");
