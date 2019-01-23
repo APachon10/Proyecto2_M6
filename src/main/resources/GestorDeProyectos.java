@@ -54,7 +54,6 @@ public class GestorDeProyectos extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -318,7 +317,6 @@ public class GestorDeProyectos extends JFrame {
 		ifLogin.setVisible(true);
 
 		mntmNuevoUsuario.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ifNewUser.setVisible(true);
@@ -337,4 +335,5 @@ public class GestorDeProyectos extends JFrame {
 			}
 		});
 	}
+
 }
