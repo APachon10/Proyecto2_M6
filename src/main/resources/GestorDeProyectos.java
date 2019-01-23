@@ -111,7 +111,7 @@ public class GestorDeProyectos extends JFrame {
 				JLabel lblMail = new JLabel("Mail:");
 				
 				JComboBox comboBox = new JComboBox();
-				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un perfil de usuario", "Master Owner", "Scrum Master", "Developer", "Administrador"}));
+				comboBox.setModel(new DefaultComboBoxModel(new String[] {"Seleccione un perfil de usuario", "Product Owner", "Scrum Master", "Developer", "Administrador"}));
 				
 				txtNombre = new JTextField();
 				txtNombre.setColumns(10);
