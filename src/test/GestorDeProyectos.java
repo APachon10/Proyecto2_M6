@@ -206,7 +206,6 @@ public class GestorDeProyectos extends JFrame {
 		JButton btnEnviar = new JButton("ENVIAR");
 
 		btnEnviar.addKeyListener(new KeyListener() {
-
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
