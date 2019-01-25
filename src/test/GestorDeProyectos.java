@@ -68,6 +68,12 @@ public class GestorDeProyectos extends JFrame {
 		JMenu mnNewMenu = new JMenu("Proyecto");
 		mnNewMenu.setEnabled(false);
 		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNuevoProyecto = new JMenuItem("Nuevo Proyecto");
+		mnNewMenu.add(mntmNuevoProyecto);
+		
+		JMenuItem mntmMostrarProyecto = new JMenuItem("Mostrar Proyecto");
+		mnNewMenu.add(mntmMostrarProyecto);
 
 		JMenu mnNewMenu_1 = new JMenu("Usuarios");
 		mnNewMenu_1.setEnabled(false);
@@ -75,6 +81,9 @@ public class GestorDeProyectos extends JFrame {
 
 		JMenuItem mntmNuevoUsuario = new JMenuItem("Nuevo Usuario");
 		mnNewMenu_1.add(mntmNuevoUsuario);
+		
+		JMenuItem mntmBuscarmodificarUsuario = new JMenuItem("Buscar/Modificar Usuario");
+		mnNewMenu_1.add(mntmBuscarmodificarUsuario);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
