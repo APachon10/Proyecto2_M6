@@ -14,6 +14,8 @@ import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 public class VentanaProyecto extends JFrame {
 
@@ -34,75 +36,104 @@ public class VentanaProyecto extends JFrame {
 	public VentanaProyecto() {
 		setTitle("Nuevo Proyecto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 645, 436);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(desktopPane, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(17)
+					.addComponent(desktopPane, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+					.addGap(40))
+		);
+		
+		JInternalFrame internalFrame = new JInternalFrame("New JInternalFrame");
+		internalFrame.setBounds(10, 11, 579, 309);
+		desktopPane.add(internalFrame);
 		
 		JLabel lblNombreProyecto = new JLabel("Nombre Proyecto");
 		
 		JLabel lblDescripcion = new JLabel("Descripcion");
 		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
 		JLabel lblScrumMaster = new JLabel("Scrum Master");
 		
 		JLabel lblProductoOwner = new JLabel("Producto Owner");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		JTextArea textArea = new JTextArea();
+		JComboBox comboBox_1 = new JComboBox();
 		
 		JComboBox comboBox = new JComboBox();
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JTextArea textArea = new JTextArea();
 		
 		JButton btnAadir = new JButton("A\u00F1adir");
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(28)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNombreProyecto)
-						.addComponent(lblDescripcion)
-						.addComponent(lblScrumMaster)
-						.addComponent(lblProductoOwner))
-					.addGap(26)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnAadir)
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBox_1, 0, 237, Short.MAX_VALUE)
-								.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-								.addComponent(comboBox, 0, 237, Short.MAX_VALUE)
-								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))
-							.addGap(50))))
+		GroupLayout groupLayout = new GroupLayout(internalFrame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNombreProyecto)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblDescripcion)
+								.addComponent(lblProductoOwner)
+								.addComponent(lblScrumMaster))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(129)
+											.addComponent(btnAadir))
+										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(18)
+									.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)))))
+					.addContainerGap())
 		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(32)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNombreProyecto)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDescripcion)
 						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+					.addGap(40)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblScrumMaster)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblProductoOwner)
 						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
 					.addComponent(btnAadir)
-					.addGap(7))
+					.addGap(23))
 		);
+		internalFrame.getContentPane().setLayout(groupLayout);
+		internalFrame.setVisible(true);
 		contentPane.setLayout(gl_contentPane);
 	}
 }
