@@ -156,7 +156,7 @@ public class VentanaProyecto extends JFrame {
         entityManager.getTransaction().begin();
 		Proyectos p = new Proyectos();
 		
-		p.setProjectID();
+		p.setProjectID(1);
 		p.setProject_name("Prueba1");
 		p.setDescripcion("Proyecto Prueba ");	
 	}
