@@ -1,12 +1,16 @@
-package Tablas;
+package main.modelos;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="users")
 public class Users {
 	private Integer userID,group_id,permiso_id;
 	private String nickname,complete_name,password,mail;
@@ -17,13 +21,13 @@ public class Users {
 	public Integer getUserID() {
 		return userID;
 	}
-	@OneToMany
-	@JoinColumn(name = "groupID")
+	
+	@Column
 	public Integer getGroup_id() {
 		return group_id;
 	}
-	@OneToMany
-	@JoinColumn(name = "permisoID")
+	
+	@Column
 	public Integer getPermiso_id() {
 		return permiso_id;
 	}

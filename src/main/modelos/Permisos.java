@@ -1,4 +1,4 @@
-package Tablas;
+package main.modelos;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "proyecto_scram_pruebas")
+@Table(name = "permisos")
 public class Permisos {
 	private Integer permisoID;
 	private String permiso_name;

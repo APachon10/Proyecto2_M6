@@ -39,24 +39,7 @@ public class GestorDeProyectos extends JFrame {
 	private JTextField txtRepitaPassword;
 	private JTextField txtMail;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestorDeProyectos frame = new GestorDeProyectos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	/**
-	 * Create the frame.
-	 */
+
 	public GestorDeProyectos() {
 		setTitle("Gestor de Proyectos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

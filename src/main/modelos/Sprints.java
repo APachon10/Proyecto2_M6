@@ -1,12 +1,16 @@
-package Tablas;
+package main.modelos;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="sprints")
 public class Sprints {
 	private Integer sprintID,projectID;
 	//Setters
@@ -23,8 +27,8 @@ public class Sprints {
 	public Integer getSprintID() {
 		return sprintID;
 	}
-	@OneToMany
-	@JoinColumn(name = "projectID")
+	
+	@Column
 	public Integer getProjectID() {
 		return projectID;
 	}

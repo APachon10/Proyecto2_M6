@@ -1,18 +1,23 @@
-package Tablas;
+package main.modelos;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="usersprojects")
 public class usersProjects {
 	private int userID,projectID;
 	//Getters
-	@ManyToMany
-	@JoinColumn(name = "userID")
 	public int getUserID() {
 		return userID;
 	}
-	@ManyToMany
-	@JoinColumn(name = "projectID")
+
+	@Column
+	@Id
 	public int getProjectID() {
 		return projectID;
 	}

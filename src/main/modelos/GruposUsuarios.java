@@ -1,15 +1,18 @@
-package Tablas;
+package main.modelos;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="usergroups")
 public class GruposUsuarios {
-//	@OneToMany
-//	@JoinColumn(name = "ProjectID")
+
 	private Integer groupID,ProjectID;
 	private String group_name;
 	//Getters
@@ -19,8 +22,8 @@ public class GruposUsuarios {
 	public Integer getGroupID() {
 		return groupID;
 	}
-	@OneToMany
-    @JoinColumn(name = "ProjectID")
+	
+	@Column
 	public Integer getProjectID() {
 		return ProjectID;
 	}
