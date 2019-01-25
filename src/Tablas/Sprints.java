@@ -23,8 +23,7 @@ public class Sprints {
 	public Integer getSprintID() {
 		return sprintID;
 	}
-	@OneToMany
-	@JoinColumn(name = "projectID")
+	@Column(name = "projectID")
 	public Integer getProjectID() {
 		return projectID;
 	}

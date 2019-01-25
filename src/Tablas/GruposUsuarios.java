@@ -19,8 +19,7 @@ public class GruposUsuarios {
 	public Integer getGroupID() {
 		return groupID;
 	}
-	@OneToMany
-    @JoinColumn(name = "ProjectID")
+	@Column(name = "ProjectID")
 	public Integer getProjectID() {
 		return ProjectID;
 	}

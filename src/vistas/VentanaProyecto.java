@@ -6,6 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Tablas.Proyectos;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -21,6 +27,13 @@ public class VentanaProyecto extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private JInternalFrame internalFrame ;
+	private JDesktopPane desktopPane;
+	private JLabel lblNombreProyecto,lblDescripcion,lblScrumMaster,lblProductoOwner;
+	private JComboBox comboBox_1,comboBox;
+	private JTextArea textArea;
+	private JButton btnAadir;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,7 +54,7 @@ public class VentanaProyecto extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane = new JDesktopPane();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -58,26 +71,26 @@ public class VentanaProyecto extends JFrame {
 					.addGap(40))
 		);
 		
-		JInternalFrame internalFrame = new JInternalFrame("New JInternalFrame");
+		internalFrame = new JInternalFrame("New JInternalFrame");
 		internalFrame.setBounds(10, 11, 579, 309);
 		desktopPane.add(internalFrame);
 		
-		JLabel lblNombreProyecto = new JLabel("Nombre Proyecto");
+		lblNombreProyecto = new JLabel("Nombre Proyecto");
 		
-		JLabel lblDescripcion = new JLabel("Descripcion");
+		lblDescripcion = new JLabel("Descripcion");
 		
 		textField = new JTextField();
 		textField.setColumns(10);
 		
-		JLabel lblScrumMaster = new JLabel("Scrum Master");
+		lblScrumMaster = new JLabel("Scrum Master");
 		
-		JLabel lblProductoOwner = new JLabel("Producto Owner");
+		lblProductoOwner = new JLabel("Producto Owner");
 		
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		
 		JButton btnAadir = new JButton("A\u00F1adir");
 		GroupLayout groupLayout = new GroupLayout(internalFrame.getContentPane());
@@ -135,5 +148,16 @@ public class VentanaProyecto extends JFrame {
 		internalFrame.getContentPane().setLayout(groupLayout);
 		internalFrame.setVisible(true);
 		contentPane.setLayout(gl_contentPane);
+	}
+	public void añadirProjecto() {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("UsersDB");
+        EntityManager entityManager = factory.createEntityManager();
+         
+        entityManager.getTransaction().begin();
+		Proyectos p = new Proyectos();
+		
+		p.setProjectID();
+		p.setProject_name("Prueba1");
+		p.setDescripcion("Proyecto Prueba ");	
 	}
 }

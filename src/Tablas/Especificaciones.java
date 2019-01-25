@@ -34,13 +34,11 @@ public class Especificaciones {
 	public Integer getSpecID() {
 		return specID;
 	}
-	@OneToMany
-	@JoinColumn(name = "ProjectID")
+	@Column(name = "ProjectID")
 	public Integer getProjectID() {
 		return projectID;
 	}
-	@OneToMany
-	@JoinColumn(name = "SprintID")
+	@Column(name = "SprintID")
 	public Integer getSprintID() {
 		return SprintID;
 	}
