@@ -22,31 +22,21 @@ public class UserSQLRemota implements IUser {
 	public UserSQLRemota() {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
 		EntityManager entityManager = factory.createEntityManager();
-//		int primaryKey = 1;
-//
-//		while (entityManager.find(Users.class, primaryKey) != null) {
-//			this.users.add(entityManager.find(Users.class, primaryKey));
-//			primaryKey++;
-//		}
-//
-//		primaryKey = 1;
-//
-//		while (entityManager.find(Permisos.class, primaryKey) != null) {
-//			this.permisos.add(entityManager.find(Permisos.class, primaryKey));
-//			primaryKey++;
-//		}
+		int primaryKey = 1;
+		
+		while (entityManager.find(Users.class, primaryKey) != null) {
+			this.users.add(entityManager.find(Users.class, primaryKey));
+			primaryKey++;
+		}
+
+		primaryKey = 1;
+
+		while (entityManager.find(Permisos.class, primaryKey) != null) {
+			this.permisos.add(entityManager.find(Permisos.class, primaryKey));
+			primaryKey++;
+		}
 	}
 
-	/*
-	 * Search within the ArrayList for the user specified in the login screen.
-	 * 
-	 * @param The Username and the password introduced in the login screen.
-	 * 
-	 * @return If the username and the password is correct, return the object User
-	 * with the information about the user logged.
-	 * 
-	 * @see main.interfaces.IUser#getUserLogin(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public Users getUserLogin(String userName, String password) {
 		String passHashed = password;

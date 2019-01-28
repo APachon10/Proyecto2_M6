@@ -15,35 +15,36 @@ public class Users {
 	private Integer userID,group_id,permiso_id;
 	private String nickname,complete_name,password,mail;
 	//Getters
-	@Column
+	
 	@Id
+	@Column(name ="userID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getUserID() {
 		return userID;
 	}
 	
-	@Column
+	@Column(name ="groupID")
 	public Integer getGroup_id() {
 		return group_id;
 	}
 	
-	@Column
+	@Column(name ="permisoID")
 	public Integer getPermiso_id() {
 		return permiso_id;
 	}
-	@Column
+	@Column(name ="nickname")
 	public String getNickname() {
 		return nickname;
 	}
-	@Column
+	@Column(name ="complete_name")
 	public String getComplete_name() {
 		return complete_name;
 	}
-	@Column
+	@Column(name ="password")
 	public String getPassword() {
 		return password;
 	}
-	@Column
+	@Column(name ="mail")
 	public String getMail() {
 		return mail;
 	}

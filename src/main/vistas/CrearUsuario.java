@@ -35,7 +35,7 @@ public class CrearUsuario extends JInternalFrame implements ActionListener{
 		this.setClosable(true);
 		this.setIconifiable(true);
 		this.setTitle("Create User");
-		// THIS PART BELONGS TO THE VARIABLES FEATURES
+		
 		getContentPane().setForeground(Color.WHITE);
 		
 		JLabel lblName = new JLabel("Nombre:");

@@ -49,7 +49,6 @@ public class Login implements ActionListener{
 	}
 
 	private void initialize() {
-		// Initialize JLabels:
 		lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 14));
 
@@ -83,7 +82,6 @@ public class Login implements ActionListener{
 		btnExit.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnExit.setVisible(false);
 		
-		// THIS PART BELONGS TO THE VARIABLES FEATURES
 		frame = new JFrame("Gestor de proyectos" + iuser.getTitleConnection());
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setBounds(100, 100, 750, 715);
@@ -97,7 +95,7 @@ public class Login implements ActionListener{
 		if1.setLocation(76, 69);
 		desktop.add(if1);
 		
-		// THIS PART BELONGS TO LAYOUT(GROUP LAYOUT)
+		
 		GroupLayout groupLayout = new GroupLayout(if1.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -193,6 +191,7 @@ public class Login implements ActionListener{
 		Users user = iuser.getUserLogin(txtLogin.getText(), String.valueOf(passwordField.getPassword()));
 		if(user != null) {
 			try {
+				lblError.setVisible(false);
 				if1.setClosed(true);
 				lblUser.setVisible(true);
 				lblNameUser.setText(user.getNickname() + " (" + iuser.getUserLoggedPermission() + ")");

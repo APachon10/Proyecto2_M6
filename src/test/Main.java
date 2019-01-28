@@ -16,18 +16,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			// Connection to SQL Remote
 			emf = Persistence.createEntityManagerFactory("scrumprojectmanager");
 			em = emf.createEntityManager();
 			iuser = new UserSQLRemota();
-			System.out.println("[INFO] - Conexión Online");
+			System.out.println("Online");
 		} catch (Exception e) {
-			System.out.println("[INFO] - Conexión Offline " + e);
+			System.out.println("Offline");
 			iuser = new UserSQLLocal();
 		}
-
+		
 		Login login = new Login(iuser);
-		IUser iuser = new UserSQLLocal();
-		iuser.getAllUsers();
 	}
 }

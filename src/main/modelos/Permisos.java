@@ -14,13 +14,14 @@ public class Permisos {
 	private String permiso_name;
 	
 	/*Getters */
-	@Column
+	
 	@Id
+	@Column(name = "permisoID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getPermisoID() {
 		return permisoID;
 	}
-	@Column
+	@Column(name = "permiso_name")
 	public String getPermiso_name() {
 		return permiso_name;
 	}
