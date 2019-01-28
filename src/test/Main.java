@@ -24,7 +24,8 @@ public class Main {
 			System.out.println("Offline");
 			iuser = new UserSQLLocal();
 		}
-		
 		Login login = new Login(iuser);
+		IUser iuser = new UserSQLLocal();
+		iuser.getAllUsers();
 	}
 }
