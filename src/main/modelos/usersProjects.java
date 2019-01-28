@@ -15,7 +15,6 @@ public class usersProjects {
 	public int getUserID() {
 		return userID;
 	}
-
 	@Column
 	@Id
 	public int getProjectID() {
