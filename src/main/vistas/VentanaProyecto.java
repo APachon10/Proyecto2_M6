@@ -1,4 +1,4 @@
-package vistas;
+package main.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Tablas.Proyectos;
+import main.modelos.Proyectos;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,12 +26,12 @@ import javax.swing.JInternalFrame;
 public class VentanaProyecto extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField NameProject;
 	private JInternalFrame internalFrame ;
 	private JDesktopPane desktopPane;
-	private JLabel lblNombreProyecto,lblDescripcion,lblScrumMaster,lblProductoOwner;
+	private JLabel lblNombreProyecto,lblDescripcion,lblScrumMaster,lblProductoOwner,ProjectoExistente;
 	private JComboBox comboBox_1,comboBox;
-	private JTextArea textArea;
+	private JTextArea DescArea;
 	private JButton btnAadir;
 	
 	public static void main(String[] args) {
@@ -79,8 +79,8 @@ public class VentanaProyecto extends JFrame {
 		
 		lblDescripcion = new JLabel("Descripcion");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		NameProject = new JTextField();
+		NameProject.setColumns(10);
 		
 		lblScrumMaster = new JLabel("Scrum Master");
 		
@@ -90,36 +90,39 @@ public class VentanaProyecto extends JFrame {
 		
 		comboBox = new JComboBox();
 		
-		textArea = new JTextArea();
+		DescArea = new JTextArea();
 		
 		JButton btnAadir = new JButton("A\u00F1adir");
+		
+		ProjectoExistente = new JLabel("");
 		GroupLayout groupLayout = new GroupLayout(internalFrame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addComponent(lblScrumMaster)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
+							.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblProductoOwner)
+									.addGap(26)
+									.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnAadir)))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblDescripcion)
+							.addPreferredGap(ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+							.addComponent(DescArea, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNombreProyecto)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDescripcion)
-								.addComponent(lblProductoOwner)
-								.addComponent(lblScrumMaster))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(129)
-											.addComponent(btnAadir))
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 448, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(18)
-									.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)))))
+								.addComponent(ProjectoExistente, GroupLayout.PREFERRED_SIZE, 425, GroupLayout.PREFERRED_SIZE)
+								.addComponent(NameProject, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
+							.addGap(17)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -128,36 +131,43 @@ public class VentanaProyecto extends JFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNombreProyecto)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(NameProject, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDescripcion)
-						.addComponent(textArea, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
-					.addGap(40)
+					.addComponent(ProjectoExistente, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(DescArea, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDescripcion))
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblScrumMaster)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblProductoOwner)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblProductoOwner))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnAadir)
-					.addGap(23))
+					.addContainerGap())
 		);
 		internalFrame.getContentPane().setLayout(groupLayout);
 		internalFrame.setVisible(true);
 		contentPane.setLayout(gl_contentPane);
 	}
 	public void añadirProjecto() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("UsersDB");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
         EntityManager entityManager = factory.createEntityManager();
          
         entityManager.getTransaction().begin();
 		Proyectos p = new Proyectos();
-		
-		p.setProjectID(1);
-		p.setProject_name("Prueba1");
-		p.setDescripcion("Proyecto Prueba ");	
+		if (p.getProject_name().equals(NameProject.getText())) {
+			ProjectoExistente.setText("El Proyecto" +p.getProject_name()+" ya existe ");
+		}else {
+			p.setProjectID(1);
+			p.setProject_name(NameProject.getText());
+			p.setDescripcion(DescArea.getText());
+		}
+		entityManager.close();
+		factory.close();
 	}
 }

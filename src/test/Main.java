@@ -25,7 +25,6 @@ public class Main {
 			System.out.println("[INFO] - Conexión Offline " + e);
 			iuser = new UserSQLLocal();
 		}
-
 		Login login = new Login(iuser);
 		IUser iuser = new UserSQLLocal();
 		iuser.getAllUsers();
