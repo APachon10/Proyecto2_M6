@@ -14,8 +14,23 @@ import javax.persistence.Table;
 public class Users {
 	private Integer userID,group_id,permiso_id;
 	private String nickname,complete_name,password,mail;
-	//Getters
 	
+	public Users() {
+		
+	}
+	
+	public Users(Integer userID, Integer group_id, Integer permiso_id, String nickname, String complete_name,
+			String password, String mail) {
+		this.userID = userID;
+		this.group_id = group_id;
+		this.permiso_id = permiso_id;
+		this.nickname = nickname;
+		this.complete_name = complete_name;
+		this.password = password;
+		this.mail = mail;
+	}
+
+	//Getters
 	@Id
 	@Column(name ="userID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

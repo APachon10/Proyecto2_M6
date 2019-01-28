@@ -16,18 +16,18 @@ public class GruposUsuarios {
 	private Integer groupID,ProjectID;
 	private String group_name;
 	//Getters
-	@Column
+	@Column(name="groupID")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getGroupID() {
 		return groupID;
 	}
 	
-	@Column
+	@Column(name="projectID")
 	public Integer getProjectID() {
 		return ProjectID;
 	}
-	@Column
+	@Column(name="group_name")
 	public String getGroup_name() {
 		return group_name;
 	}

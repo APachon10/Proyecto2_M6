@@ -25,7 +25,5 @@ public class Main {
 			iuser = new UserSQLLocal();
 		}
 		Login login = new Login(iuser);
-		IUser iuser = new UserSQLLocal();
-		iuser.getAllUsers();
 	}
 }

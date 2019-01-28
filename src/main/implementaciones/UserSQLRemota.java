@@ -3,6 +3,7 @@ package main.implementaciones;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,13 +25,14 @@ public class UserSQLRemota implements IUser {
 		EntityManager entityManager = factory.createEntityManager();
 		int primaryKey = 1;
 		
-		while (entityManager.find(Users.class, primaryKey) != null) {
-			this.users.add(entityManager.find(Users.class, primaryKey));
-			primaryKey++;
-		}
+//		while (entityManager.find(Users.class, primaryKey) != null) {
+//			this.users.add(entityManager.find(Users.class, primaryKey));
+//			primaryKey++;
+//		}
 
+		
+		
 		primaryKey = 1;
-
 		while (entityManager.find(Permisos.class, primaryKey) != null) {
 			this.permisos.add(entityManager.find(Permisos.class, primaryKey));
 			primaryKey++;
@@ -39,19 +41,14 @@ public class UserSQLRemota implements IUser {
 
 	@Override
 	public Users getUserLogin(String userName, String password) {
-		String passHashed = password;
-		for (Users user : users) {
-			if (user.getNickname().equals(userName) && user.getPassword().equals(passHashed)) {
-				this.userLogged = user;
-				System.out.println("[INFO] - Usuario encontrado!");
-				System.out.println("====================================");
-				System.out.println("Usuario: " + this.userLogged.getNickname());
-				System.out.println("Contraseña: " + this.userLogged.getPassword());
-				System.out.println("====================================");
-				return this.userLogged;
-			}
-		}
-		return null;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
+		EntityManager entityManager = factory.createEntityManager();
+		
+		List<Users> usuario=entityManager.createQuery("select x from Users x where nickname = '"+userName+"' and password = '"+password+"'").getResultList();
+		
+		userLogged=usuario.get(0);
+		
+		return userLogged;
 	}
 
 	/*

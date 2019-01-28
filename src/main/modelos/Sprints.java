@@ -21,14 +21,14 @@ public class Sprints {
 		this.projectID = projectID;
 	}
 	//Getters
-	@Column
+	@Column(name ="sprintID")
 	@Id
 	@GeneratedValue(strategy  = GenerationType.IDENTITY)
 	public Integer getSprintID() {
 		return sprintID;
 	}
 	
-	@Column
+	@Column(name ="projectID")
 	public Integer getProjectID() {
 		return projectID;
 	}

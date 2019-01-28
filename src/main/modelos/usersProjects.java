@@ -12,11 +12,12 @@ import javax.persistence.Table;
 public class usersProjects {
 	private int userID,projectID;
 	//Getters
+	@Column(name ="userID")
+	@Id
 	public int getUserID() {
 		return userID;
 	}
-	@Column
-	@Id
+	@Column(name ="projectID")
 	public int getProjectID() {
 		return projectID;
 	}

@@ -32,23 +32,23 @@ public class Especificaciones {
 		this.description = description;
 	}
 	//Getters
-	@Column
+	@Column(name="specID")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getSpecID() {
 		return specID;
 	}
 	
-	@Column
+	@Column(name="projectID")
 	public Integer getProjectID() {
 		return projectID;
 	}
 	
-	@Column
+	@Column(name="sprintID")
 	public Integer getSprintID() {
 		return SprintID;
 	}
-	@Column
+	@Column(name="description")
 	public String getDescription() {
 		return description;
 	}
