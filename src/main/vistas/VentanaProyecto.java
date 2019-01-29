@@ -2,6 +2,8 @@ package main.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +17,7 @@ import javax.persistence.Persistence;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -23,7 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-public class VentanaProyecto extends JFrame {
+public class VentanaProyecto extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField NameProject;
@@ -33,7 +36,7 @@ public class VentanaProyecto extends JFrame {
 	private JComboBox comboBox_1,comboBox;
 	private JTextArea DescArea;
 	private JButton btnAadir;
-
+	
 	public VentanaProyecto() {
 		setTitle("Nuevo Proyecto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,19 +145,17 @@ public class VentanaProyecto extends JFrame {
 		internalFrame.setVisible(true);
 		contentPane.setLayout(gl_contentPane);
 	}
-	public void añadirProjecto() {	
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
-        EntityManager entityManager = factory.createEntityManager();
-         
-        entityManager.getTransaction().begin();
-		Proyectos p = new Proyectos();
-		if (p.getProject_name().equals(NameProject.getText())) {
-			ProjectoExistente.setText("El Proyecto" +p.getProject_name()+" ya existe ");
-		}else {
-			p.setProject_name(NameProject.getText());
-			p.setDescripcion(DescArea.getText());
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAadir) {
+			if (NameProject.getText().isEmpty() || lblDescripcion.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(rootPane, "Tienes que rellenar todos los campos", "Error", JOptionPane.INFORMATION_MESSAGE);;
+			}else {
+				Proyectos p = new Proyectos();
+			}
+			JOptionPane.showMessageDialog(rootPane, "");
 		}
-		entityManager.close();
-		factory.close();
 	}
+
 }

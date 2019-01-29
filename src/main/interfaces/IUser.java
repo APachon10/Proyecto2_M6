@@ -8,6 +8,7 @@ import java.util.Random;
 
 import main.modelos.Users;
 import main.modelos.Permisos;
+import main.modelos.Proyectos;
 
 public interface IUser {
 
@@ -26,6 +27,8 @@ public interface IUser {
 	public String getTitleConnection();
 	public Users getUserLogged();
 	public String getUserLoggedPermission();
+	public Proyectos añadirProyecto();
+	public Proyectos obtenerProyectos();
 	
 	/*
 	 * Print all users of the ArrayList<User>
@@ -39,7 +42,6 @@ public interface IUser {
 			System.err.println("No se han cargado los datos de los usuarios correctamente.");
 		}
 	}
-	
 	
 	/*
 	 * This method is responsible for generate a new password for the new user created.
