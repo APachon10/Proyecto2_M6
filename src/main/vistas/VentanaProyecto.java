@@ -163,7 +163,6 @@ public class VentanaProyecto extends JFrame {
 		if (p.getProject_name().equals(NameProject.getText())) {
 			ProjectoExistente.setText("El Proyecto" +p.getProject_name()+" ya existe ");
 		}else {
-			p.setProjectID(1);
 			p.setProject_name(NameProject.getText());
 			p.setDescripcion(DescArea.getText());
 		}
