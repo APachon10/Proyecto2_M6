@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import main.modelos.Permisos;
 import main.modelos.Proyectos;
 
 import javax.persistence.EntityManager;
@@ -150,12 +151,62 @@ public class VentanaProyecto extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAadir) {
 			if (NameProject.getText().isEmpty() || lblDescripcion.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(rootPane, "Tienes que rellenar todos los campos", "Error", JOptionPane.INFORMATION_MESSAGE);;
-			}else {
-				Proyectos p = new Proyectos();
+				JOptionPane.showMessageDialog(rootPane, "Tienes que rellenar todos los campos", "Error", JOptionPane.INFORMATION_MESSAGE);
+				NameProject.setText("");
+				DescArea.setText("");
 			}
-			JOptionPane.showMessageDialog(rootPane, "");
 		}
 	}
 
+	public JInternalFrame getInternalFrame() {
+		return internalFrame;
+	}
+
+	public void setInternalFrame(JInternalFrame internalFrame) {
+		this.internalFrame = internalFrame;
+	}
+
+	public JComboBox getComboBox_1() {
+		return comboBox_1;
+	}
+
+	public void setComboBox_1(JComboBox comboBox_1) {
+		this.comboBox_1 = comboBox_1;
+	}
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+
+	public void setComboBox(JComboBox comboBox) {
+		this.comboBox = comboBox;
+	}
+
+	public JTextArea getDescArea() {
+		return DescArea;
+	}
+
+	public void setDescArea(JTextArea descArea) {
+		DescArea = descArea;
+	}
+
+	public JTextField getNameProject() {
+		return NameProject;
+	}
+
+	public JDesktopPane getDesktopPane() {
+		return desktopPane;
+	}
+
+	public JLabel getLblScrumMaster() {
+		return lblScrumMaster;
+	}
+
+	public JLabel getLblProductoOwner() {
+		return lblProductoOwner;
+	}
+
+	public JButton getBtnAadir() {
+		return btnAadir;
+	}
 }
