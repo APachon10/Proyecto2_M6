@@ -11,7 +11,9 @@ import javax.persistence.Persistence;
 
 import main.interfaces.IUser;
 import main.modelos.Permisos;
+import main.modelos.Proyectos;
 import main.modelos.Users;
+import main.vistas.VentanaProyecto;
 
 public class UserSQLRemota implements IUser {
 
@@ -38,7 +40,6 @@ public class UserSQLRemota implements IUser {
 			primaryKey++;
 		}
 	}
-
 	@Override
 	public Users getUserLogin(String userName, String password) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
@@ -93,6 +94,28 @@ public class UserSQLRemota implements IUser {
 					"[ERROR] - No hay ningún usuario logeado, por lo tanto no se puede obtener el tipo de usuario que es.");
 		}
 
+		return null;
+	}
+	@Override
+	public Proyectos añadirProyecto() {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
+        EntityManager entityManager = factory.createEntityManager();
+         
+        entityManager.getTransaction().begin();
+		Proyectos p = new Proyectos();
+		if (p.getProject_name().equals(VentanaProyecto.NameProject.getText())) {
+			VentanaProyecto.ProjectoExistente.setText("El Proyecto" +p.getProject_name()+" ya existe ");
+		}else {
+			p.setProject_name(VentanaProyecto.NameProject.getText());
+			p.setDescripcion(VentanaProyecto.DescArea.getText());
+			
+		}
+		entityManager.close();
+		factory.close();
+	}
+	@Override
+	public Proyectos obtenerProyectos() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
