@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
@@ -62,7 +62,7 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`projectID`, `project_name`, `descripcion`, `productOwnerID`, `scrumMasterID`) VALUES
-(1, 'Gestor de proyectos ', 'Aplicacion que gestione todo lo relacionado a proyectos SCRUM', 4, 3);
+(1, 'Gestor de proyectos', 'Aplicacion que gestione todo lo relacionado a proyectos SCRUM', 4, 3);
 
 -- --------------------------------------------------------
 
@@ -96,16 +96,15 @@ CREATE TABLE `sprints` (
 
 CREATE TABLE `usergroups` (
   `groupID` int(11) NOT NULL,
-  `group_name` varchar(25) NOT NULL,
-  `projectID` int(11) NOT NULL
+  `group_name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usergroups`
 --
 
-INSERT INTO `usergroups` (`groupID`, `group_name`, `projectID`) VALUES
-(1, 'Pachon and Co', 1);
+INSERT INTO `usergroups` (`groupID`, `group_name`) VALUES
+(1, 'Pachon and Co');
 
 -- --------------------------------------------------------
 
@@ -191,8 +190,7 @@ ALTER TABLE `sprints`
 -- Indices de la tabla `usergroups`
 --
 ALTER TABLE `usergroups`
-  ADD PRIMARY KEY (`groupID`),
-  ADD KEY `foreign_key_projectID` (`projectID`);
+  ADD PRIMARY KEY (`groupID`);
 
 --
 -- Indices de la tabla `users`
@@ -272,12 +270,6 @@ ALTER TABLE `specifications`
 --
 ALTER TABLE `sprints`
   ADD CONSTRAINT `sprints_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `usergroups`
---
-ALTER TABLE `usergroups`
-  ADD CONSTRAINT `usergroups_ibfk_1` FOREIGN KEY (`projectID`) REFERENCES `projects` (`projectID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `users`

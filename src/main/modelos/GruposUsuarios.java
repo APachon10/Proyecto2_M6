@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="usergroups")
 public class GruposUsuarios {
 
-	private Integer groupID,ProjectID;
+	private Integer groupID;
 	private String group_name;
 	//Getters
 	@Column(name="groupID")
@@ -23,10 +23,6 @@ public class GruposUsuarios {
 		return groupID;
 	}
 	
-	@Column(name="projectID")
-	public Integer getProjectID() {
-		return ProjectID;
-	}
 	@Column(name="group_name")
 	public String getGroup_name() {
 		return group_name;
@@ -34,9 +30,6 @@ public class GruposUsuarios {
 	//Setters
 	public void setGroupID(Integer groupID) {
 		this.groupID = groupID;
-	}
-	public void setProjectID(Integer projectID) {
-		ProjectID = projectID;
 	}
 	public void setGroup_name(String group_name) {
 		this.group_name = group_name;
