@@ -93,17 +93,17 @@ public class Login implements ActionListener{
 		desktop.setBackground(Color.WHITE);
 		if1 = new JInternalFrame("Login", true, true, true, true);
 		if1.setSize(500, 330);
-		if1.setLocation(76, 69);
+		if1.setLocation(-274, -184);
 		desktop.add(if1);
 		
 		
 		GroupLayout groupLayout = new GroupLayout(if1.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(87)
+							.addContainerGap()
 							.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 310, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(42)
@@ -127,9 +127,9 @@ public class Login implements ActionListener{
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword)
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+					.addGap(39)
 					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-					.addGap(64))
+					.addContainerGap(67, Short.MAX_VALUE))
 		);
 
 		if1.getContentPane().setLayout(groupLayout);
@@ -138,19 +138,19 @@ public class Login implements ActionListener{
 		groupLayout_1.setHorizontalGroup(
 			groupLayout_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout_1.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout_1.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout_1.createSequentialGroup()
-							.addComponent(lblUser)
-							.addGap(18)
-							.addComponent(lblNameUser, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnExit)
-							.addGap(8))
-						.addComponent(desktop, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE))
-					.addContainerGap())
+					.addContainerGap(278, Short.MAX_VALUE)
+					.addComponent(lblUser)
+					.addGap(18)
+					.addComponent(lblNameUser, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnExit)
+					.addGap(18))
+				.addGroup(groupLayout_1.createSequentialGroup()
+					.addGap(38)
+					.addComponent(desktop, GroupLayout.DEFAULT_SIZE, 714, Short.MAX_VALUE)
+					.addGap(54))
 		);
 		groupLayout_1.setVerticalGroup(
 			groupLayout_1.createParallelGroup(Alignment.LEADING)
@@ -161,10 +161,10 @@ public class Login implements ActionListener{
 						.addGroup(groupLayout_1.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblNameUser)
 							.addComponent(lblUser)))
-							.addComponent(lblError)
-					.addGap(26)
-					.addComponent(desktop, GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(lblError)
+					.addGap(47)
+					.addComponent(desktop, GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+					.addGap(41))
 		);
 		
 		menuBar = new JMenuBar();
@@ -184,6 +184,13 @@ public class Login implements ActionListener{
 		menuBar.add(mnUsuarios);
 		
 		JMenuItem mntmCrearUsuario = new JMenuItem("Crear Usuario");
+		mntmCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CrearUsuario cu=new CrearUsuario(iuser);
+				desktop.add(cu);
+				desktop.setVisible(true);
+			}
+		});
 		mnUsuarios.add(mntmCrearUsuario);
 		
 		JMenuItem mntmBuscarmodificarUsuario = new JMenuItem("Buscar/Modificar Usuario");
