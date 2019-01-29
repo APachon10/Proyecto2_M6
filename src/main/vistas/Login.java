@@ -23,6 +23,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import main.interfaces.IUser;
 import main.modelos.Users;
+import javax.swing.JMenuItem;
 
 public class Login implements ActionListener{
 	
@@ -172,9 +173,21 @@ public class Login implements ActionListener{
 
 		mnProjects = new JMenu("Proyectos");
 		menuBar.add(mnProjects);
+		
+		JMenuItem mntmCrearProyecto = new JMenuItem("Crear Proyecto");
+		mnProjects.add(mntmCrearProyecto);
+		
+		JMenuItem mntmMostrarProyectos = new JMenuItem("Mostrar Proyectos");
+		mnProjects.add(mntmMostrarProyectos);
 
 		mnUsuarios = new JMenu("Usuarios");
 		menuBar.add(mnUsuarios);
+		
+		JMenuItem mntmCrearUsuario = new JMenuItem("Crear Usuario");
+		mnUsuarios.add(mntmCrearUsuario);
+		
+		JMenuItem mntmBuscarmodificarUsuario = new JMenuItem("Buscar/Modificar Usuario");
+		mnUsuarios.add(mntmBuscarmodificarUsuario);
 		
 		menuBar.setVisible(false);
 		frame.getContentPane().setLayout(groupLayout_1);
@@ -184,6 +197,13 @@ public class Login implements ActionListener{
 		Dimension jInternalFrameSize = if1.getSize();
 		if1.setLocation((desktopSize.width - jInternalFrameSize.width)/2,
 		    (desktopSize.height- jInternalFrameSize.height)/2);
+		
+		mntmCrearProyecto.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaProyecto v = new VentanaProyecto();
+			}
+		});
 	}
 
 	@Override

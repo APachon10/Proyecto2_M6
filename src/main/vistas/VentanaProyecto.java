@@ -33,19 +33,7 @@ public class VentanaProyecto extends JFrame {
 	private JComboBox comboBox_1,comboBox;
 	private JTextArea DescArea;
 	private JButton btnAadir;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaProyecto frame = new VentanaProyecto();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 	public VentanaProyecto() {
 		setTitle("Nuevo Proyecto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -154,7 +142,7 @@ public class VentanaProyecto extends JFrame {
 		internalFrame.setVisible(true);
 		contentPane.setLayout(gl_contentPane);
 	}
-	public void añadirProjecto() {
+	public void añadirProjecto() {	
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
         EntityManager entityManager = factory.createEntityManager();
          
