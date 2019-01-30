@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -130,7 +131,6 @@ public class UserSQLRemota implements IUser {
 
 	@Override
 	public void añadirUsuario(Users user) {
-		System.out.println(user.getNickname());
 		this.users.add(user);
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(user);
@@ -152,9 +152,22 @@ public class UserSQLRemota implements IUser {
 					+ "', "+ null+", " + user.getPermiso_id() + ");";
 			statement.executeUpdate(consulta);
 			statement.close();
+			this.connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ArrayList<Users> getScrumMasterUsers() {
+		ArrayList<Users> perm=new ArrayList<>(this.entityManager.createQuery("select p from Users p where permisoID="+3).getResultList());
+		return perm;
+	}
+
+	@Override
+	public ArrayList<Users> getProductOwnerUsers() {
+		ArrayList<Users> perm=new ArrayList<>(this.entityManager.createQuery("select p from Users p where permisoID="+4).getResultList());
+		return perm;
 	}
 
 }

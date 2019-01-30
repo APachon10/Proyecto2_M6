@@ -108,25 +108,30 @@ public class Loguin implements ActionListener {
 				pf.getInternalFrame().getContentPane().removeAll();
 				pf.getInternalFrame().repaint();
 				pf.getBtnSalir().setVisible(true);
-				
+				System.out.println(iuser.getUserLogged());
+				System.out.println(iuser.getUserLoggedPermission());
 				this.lblError.setVisible(false);
 				PrincipalFrame.menuBar.setVisible(true);
-				if (iuser.getUserLoggedPermission().equals("Scrum Master")) {
+				if (iuser.getUserLogged().getPermiso_id() == 3) {
 					pf.getMntmCrearUsuario().setVisible(false);
-				} else if (iuser.getUserLoggedPermission().equals("Developer")) {
+					new CrearProyecto(iuser, pf);
+				} else if (iuser.getUserLogged().getPermiso_id() == 1) {
 					pf.getMntmCrearUsuario().setVisible(false);
 					pf.getMntmCrearProyecto().setVisible(false);
-				} else if (iuser.getUserLoggedPermission().equals("Administrador")) {
+				} else if (iuser.getUserLogged().getPermiso_id() == 2) {
+					System.out.println("hola");
 					pf.getMntmCrearProyecto().setVisible(false);
 					pf.getMntmBuscarmodificarUsuarios().setVisible(false);
 					pf.getMntmMostrarProyectos().setVisible(false);
 					new CreateUser(iuser,pf);
-				}else if (iuser.getUserLoggedPermission().equals("Product Owner")) {
+				}else if (iuser.getUserLogged().getPermiso_id() == 4) {
+					
 					pf.getMntmCrearUsuario().setVisible(false);
 					pf.getMntmCrearProyecto().setVisible(false);
 				}
 				pf.getLblUser().setVisible(true);
 				pf.getLabelNickPermiso().setVisible(true);
+				
 				pf.getLabelNickPermiso().setText(iuser.getUserLogged().getNickname()+"("+iuser.getUserLoggedPermission()+")");;				
 			}
 		}

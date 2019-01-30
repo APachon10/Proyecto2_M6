@@ -7,7 +7,6 @@ import javax.persistence.Persistence;
 import main.implementaciones.UserSQLLocal;
 import main.implementaciones.UserSQLRemota;
 import main.interfaces.IUser;
-import main.vistas.Login;
 import main.vistas.Loguin;
 
 public class Main {

@@ -15,6 +15,8 @@ public interface IUser {
 	Users user = new Users();
 	ArrayList<Users> users = new ArrayList<>();
 	ArrayList<Permisos> permisos = new ArrayList<>();
+	ArrayList<Users> smUsers=new ArrayList<>();
+	ArrayList<Users> poUsers=new ArrayList<>();
 	
 	// Methods;
 	public Users getUserLogin(String userName,String password);
@@ -22,10 +24,10 @@ public interface IUser {
 	public Users getUserLogged();
 	public String getUserLoggedPermission();
 	public void añadirUsuario(Users user);
+	public ArrayList<Users> getScrumMasterUsers();
+	public ArrayList<Users> getProductOwnerUsers();
 	
-	/*
-	 * Print all users of the ArrayList<User>
-	 */
+
 //	public default void getAllUsers() {
 //		if(users.size() != 0) {
 //			for (Users user : users) {
