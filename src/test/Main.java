@@ -8,6 +8,7 @@ import main.implementaciones.UserSQLLocal;
 import main.implementaciones.UserSQLRemota;
 import main.interfaces.IUser;
 import main.vistas.Login;
+import main.vistas.Loguin;
 
 public class Main {
 	private static IUser iuser;
@@ -24,6 +25,6 @@ public class Main {
 			System.out.println("Offline");
 			iuser = new UserSQLLocal();
 		}
-		Login login = new Login(iuser);
+		Loguin login = new Loguin(iuser);
 	}
 }

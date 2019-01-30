@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import main.interfaces.IUser;
+import main.modelos.Proyectos;
 import main.modelos.Users;
 
 public class UserSQLLocal implements IUser {
@@ -33,7 +34,6 @@ public class UserSQLLocal implements IUser {
 
 			resultSet = statement.executeQuery(query);
 			while (resultSet.next()) {
-				System.out.println(resultSet.getString(5));
 				userLogged = new Users(resultSet.getInt("userID"), resultSet.getInt("groupID"),
 						resultSet.getInt("permisoID"), resultSet.getString("nickname"),
 						resultSet.getString("complete_name"), resultSet.getString("password"),
@@ -67,7 +67,9 @@ public class UserSQLLocal implements IUser {
 
 			String query = "select * from permisos where permisoID = " + userLogged.getPermiso_id();
 			resultSet = statement.executeQuery(query);
-
+			
+			
+			
 			while (resultSet.next()) {
 				return resultSet.getString("permiso_name");
 			}
@@ -76,5 +78,24 @@ public class UserSQLLocal implements IUser {
 		}
 
 		return null;
+	}
+
+	@Override
+	public void añadirUsuario(Users user) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		try {
+			statement = connection.createStatement();
+			String consulta = "insert into users" + " VALUES('" + user.getUserID() + "', '" +user.getNickname()
+					+ "', '" + user.getComplete_name() + "', '" + user.getPassword() + "', '" + user.getMail()
+					+ "', "+ null+", " + user.getPermiso_id() + ");";
+			statement.executeUpdate(consulta);
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
