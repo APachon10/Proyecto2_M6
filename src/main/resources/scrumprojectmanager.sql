@@ -1,9 +1,9 @@
-﻿-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2019 a las 22:10:28
+-- Tiempo de generación: 30-01-2019 a las 15:33:46
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -62,7 +62,8 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`projectID`, `project_name`, `descripcion`, `productOwnerID`, `scrumMasterID`) VALUES
-(1, 'Gestor de proyectos', 'Aplicacion que gestione todo lo relacionado a proyectos SCRUM', 4, 3);
+(1, 'Gestor de proyectos', 'Aplicacion que gestione todo lo relacionado a proyectos SCRUM', 4, 3),
+(4, 'Car Config', 'Configurador de coches', 6, 5);
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,9 @@ INSERT INTO `users` (`userID`, `nickname`, `complete_name`, `password`, `mail`, 
 (1, 'pachon', 'Alberto Pachon', '123123', 'pachon@gmail.com', 1, 1),
 (2, 'vsalas', 'Victor Salas Fernandez', '123123', 'vsf_2525@hotmail.com', 1, 2),
 (3, 'dsoubouti', 'Darius Sobouti', '123123', 'dsoubouti@hotmail.com', 1, 3),
-(4, 'rcarballo', 'Roger Carballo Rodriguez', '123123', 'rcarballo@everis.com', NULL, 4);
+(4, 'rcarballo', 'Roger Carballo Rodriguez', '123123', 'rcarballo@everis.com', NULL, 4),
+(5, 'lzabala', 'Leandro Zabala', '123123', 'lzabala@gmail.com', NULL, 3),
+(6, 'despeja', 'David Espeja', '123123', 'despeja@gmail.com', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -221,7 +224,7 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `specifications`
@@ -245,7 +248,7 @@ ALTER TABLE `usergroups`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
