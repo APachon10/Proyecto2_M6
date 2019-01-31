@@ -39,9 +39,7 @@ public class ProyectoSQLLocal implements IProject{
 				System.out.println(consulta);
 				this.statement.executeUpdate(consulta);
 				this.statement.close();
-				System.out.println("Statement terminado ");
 				this.connection.close();
-				System.out.println("Conexion Cerrada");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
