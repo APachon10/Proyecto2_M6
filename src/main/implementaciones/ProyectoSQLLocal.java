@@ -18,13 +18,13 @@ public class ProyectoSQLLocal implements IProject{
 	private EntityManager entityManager;
 	
 	public ProyectoSQLLocal() {
-//		try {
-//			Class.forName("org.sqlite.JDBC");
-//			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
-//
-//		} catch (ClassNotFoundException | SQLException e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Class.forName("org.sqlite.JDBC");
+			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -39,10 +39,11 @@ public class ProyectoSQLLocal implements IProject{
 				System.out.println(consulta);
 				this.statement.executeUpdate(consulta);
 				this.statement.close();
+				System.out.println("Statement terminado ");
 				this.connection.close();
+				System.out.println("Conexion Cerrada");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

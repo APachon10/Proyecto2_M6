@@ -54,6 +54,7 @@ public class UserSQLLocal implements IUser {
 
 			statement.close();
 			this.connection.close();
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
