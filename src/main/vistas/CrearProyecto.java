@@ -55,9 +55,11 @@ public class CrearProyecto {
 			poUsersName.add(user.getUserID()+"."+user.getComplete_name());
 		}
 		
+		pf.getInternalFrame().setVisible(true);
 		pf.getInternalFrame().setTitle("Nuevo Proyecto");
 		pf.getInternalFrame().setBounds(63, 11, 493, 355);
 		pf.getInternalFrame().setClosable(true);
+		pf.getInternalFrame().setDefaultCloseOperation(pf.getInternalFrame().HIDE_ON_CLOSE);
 		
 		JLabel lblNombreProyecto = new JLabel("Nombre Proyecto:");
 		

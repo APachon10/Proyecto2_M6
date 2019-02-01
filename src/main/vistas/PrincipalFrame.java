@@ -40,9 +40,11 @@ public class PrincipalFrame extends JFrame {
 	private JMenuItem mntmCrearProyecto;
 	private JMenuItem mntmBuscarmodificarUsuarios;
 	private JMenuItem mntmCrearUsuario;
+	private PrincipalFrame pf;
 	private IUser iuser;
 
 	PrincipalFrame(IUser iuser) {
+		pf=this;
 		this.setVisible(true);
 		this.setTitle("Gestor de Proyectos");
 		this.setBounds(100, 100, 596, 587);
@@ -114,6 +116,11 @@ public class PrincipalFrame extends JFrame {
 		menuBar.add(mnProyecto);
 
 		mntmCrearProyecto = new JMenuItem("Crear Proyecto");
+		mntmCrearProyecto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CrearProyecto(iuser,pf);
+			}
+		});
 		mnProyecto.add(mntmCrearProyecto);
 
 		mntmMostrarProyectos = new JMenuItem("Mostrar Proyectos");
@@ -125,7 +132,7 @@ public class PrincipalFrame extends JFrame {
 		mntmCrearUsuario = new JMenuItem("Crear Usuario");
 		mntmCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				new CreateUser(iuser,pf);
 			}
 		});
 		mnUsuario.add(mntmCrearUsuario);

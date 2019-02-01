@@ -42,9 +42,11 @@ public class CreateUser {
 	public CreateUser(IUser iuser, PrincipalFrame pf) {
 		this.iuser = iuser;
 		this.pf = pf;
+		pf.getInternalFrame().setVisible(true);
 		pf.getInternalFrame().setTitle("Nuevo Usuario");
 		pf.getInternalFrame().setBounds(63, 11, 493, 355);
 		pf.getInternalFrame().setClosable(true);
+		pf.getInternalFrame().setDefaultCloseOperation(pf.getInternalFrame().HIDE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(pf.getInternalFrame().getContentPane());
