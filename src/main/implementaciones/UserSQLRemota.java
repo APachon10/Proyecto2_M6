@@ -1,5 +1,9 @@
 package main.implementaciones;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -28,18 +32,10 @@ public class UserSQLRemota implements IUser {
 	private Connection connection;
 	private Statement statement;
 
-	/*
-	 * This constructor load the users from the Remote Database to ArrayList<User>
-	 */
 	public UserSQLRemota() {
 		factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
 		entityManager = factory.createEntityManager();
 		int primaryKey = 1;
-
-		// while (entityManager.find(Users.class, primaryKey) != null) {
-		// this.users.add(entityManager.find(Users.class, primaryKey));
-		// primaryKey++;
-		// }
 
 		primaryKey = 1;
 		while (entityManager.find(Permisos.class, primaryKey) != null) {
@@ -63,35 +59,16 @@ public class UserSQLRemota implements IUser {
 		return userLogged;
 	}
 
-	/*
-	 * Return status of connection.
-	 * 
-	 * @return A String about the state of the connection.
-	 * 
-	 * @see main.interfaces.IUser#getTitleConnection()
-	 */
 	@Override
 	public String getTitleConnection() {
 		return " (Online)";
 	}
 
-	/*
-	 * Return the Object with the information about the user logged.
-	 * 
-	 * @return the object about the user logged.
-	 * 
-	 * @see main.interfaces.IUser#getUserLogged()
-	 */
 	@Override
 	public Users getUserLogged() {
 		return this.userLogged;
 	}
 
-	/*
-	 * Return the name about the permission assigned to the user
-	 * 
-	 * @return the String with the information about the permission assigned.
-	 */
 	@Override
 	public String getUserLoggedPermission() {
 		try {
@@ -108,51 +85,25 @@ public class UserSQLRemota implements IUser {
 		return null;
 	}
 
-	// @Override
-	// public Proyectos añadirProyecto() {
-	// return null;
-	// EntityManagerFactory factory =
-	// Persistence.createEntityManagerFactory("scrumprojectmanager");
-	// EntityManager entityManager = factory.createEntityManager();
-	//
-	// entityManager.getTransaction().begin();
-	// Proyectos p = new Proyectos();
-	// if (p.getProject_name().equals(VentanaProyecto.NameProject.getText())) {
-	// VentanaProyecto.ProjectoExistente.setText("El Proyecto" + p.getProject_name()
-	// + " ya existe ");
-	// } else {
-	// p.setProject_name(VentanaProyecto.NameProject.getText());
-	// p.setDescripcion(VentanaProyecto.DescArea.getText());
-	//
-	// }
-	// entityManager.close();
-	// factory.close();
-	// }
-
 	@Override
 	public void añadirUsuario(Users user) {
 		this.users.add(user);
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(user);
 		this.entityManager.getTransaction().commit();
-		 replicarUser(user);
+		replicarUser(user);
 	}
 
 	private void replicarUser(Users user) {
 		try {
-			Class.forName("org.sqlite.JDBC");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+			establecerConexion();
 			statement = connection.createStatement();
 			String consulta = "insert into users" + " VALUES('" + user.getUserID() + "', '" +user.getNickname()
 					+ "', '" + user.getComplete_name() + "', '" + user.getPassword() + "', '" + user.getMail()
 					+ "', "+ null+", " + user.getPermiso_id() + ");";
 			statement.executeUpdate(consulta);
 			statement.close();
-			this.connection.close();
+			cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -168,6 +119,27 @@ public class UserSQLRemota implements IUser {
 	public ArrayList<Users> getProductOwnerUsers() {
 		ArrayList<Users> perm=new ArrayList<>(this.entityManager.createQuery("select p from Users p where permisoID="+4).getResultList());
 		return perm;
+	}
+
+	@Override
+	public void establecerConexion() {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void cerrarConexion() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

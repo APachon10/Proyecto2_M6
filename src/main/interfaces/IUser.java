@@ -26,15 +26,6 @@ public interface IUser {
 	public void añadirUsuario(Users user);
 	public ArrayList<Users> getScrumMasterUsers();
 	public ArrayList<Users> getProductOwnerUsers();
-	
-
-//	public default void getAllUsers() {
-//		if(users.size() != 0) {
-//			for (Users user : users) {
-//				System.out.println(user.toString());
-//			}
-//		}else {
-//			System.err.println("No se han cargado los datos de los usuarios correctamente.");
-//		}
-//	}
+	public void establecerConexion();
+	public void cerrarConexion();
 }

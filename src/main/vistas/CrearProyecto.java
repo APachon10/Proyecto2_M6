@@ -22,14 +22,16 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Color;
 
-public class CrearProyecto {
+public class CrearProyecto extends JFrame{
 
 	private JTextField textField_pn;
 	private JTextField textField_d;
 	private PrincipalFrame pf;
 	private IUser iuser;
 	private IProject iproject;
+	private JLabel labelErrorProy;
 
 	public CrearProyecto(IUser iuser, PrincipalFrame pf) {
 		
@@ -87,12 +89,25 @@ public class CrearProyecto {
 			public void actionPerformed(ActionEvent e) {
 				Proyectos proy=new Proyectos();
 				proy.setProject_name(textField_pn.getText());
-				proy.setDescripcion(textField_d.getText());
-				proy.setScrumMasterID(Integer.parseInt(comboBox_sm.getSelectedItem().toString().substring(0,1)));
-				proy.setProductOwnerID(Integer.parseInt(comboBox_po.getSelectedItem().toString().substring(0,1)));
-				iproject.insertarProyecto(proy);
+				
+				if (iproject.getProjectName(proy)==null) {
+					labelErrorProy.setVisible(false);
+					proy.setProject_name(textField_pn.getText());
+					proy.setDescripcion(textField_d.getText());
+					proy.setScrumMasterID(Integer.parseInt(comboBox_sm.getSelectedItem().toString().substring(0,1)));
+					proy.setProductOwnerID(Integer.parseInt(comboBox_po.getSelectedItem().toString().substring(0,1)));
+					iproject.insertarProyecto(proy);
+				} else {
+					labelErrorProy.setText("ERROR - Ya existe un proyecto llamado: "+iproject.getProjectName(proy));;
+					labelErrorProy.setVisible(true);
+				}
+				
 			}
 		});
+		
+		labelErrorProy = new JLabel("");
+		labelErrorProy.setForeground(Color.RED);
+		labelErrorProy.setEnabled(true);
 		GroupLayout groupLayout = new GroupLayout(pf.getInternalFrame().getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -110,7 +125,8 @@ public class CrearProyecto {
 								.addComponent(comboBox_sm, Alignment.TRAILING, 0, 123, Short.MAX_VALUE)
 								.addComponent(btnAadir)
 								.addComponent(textField_d, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-								.addComponent(textField_pn)))
+								.addComponent(textField_pn)
+								.addComponent(labelErrorProy, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(lblProductOwner))
 					.addContainerGap(27, Short.MAX_VALUE))
 		);
@@ -121,7 +137,9 @@ public class CrearProyecto {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNombreProyecto)
 						.addComponent(textField_pn, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(labelErrorProy, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblDescripcion)
 						.addComponent(textField_d, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE))

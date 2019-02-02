@@ -1,5 +1,9 @@
 package main.implementaciones;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,27 +22,10 @@ public class UserSQLLocal implements IUser {
 	private Statement statement;
 	private ResultSet resultSet;
 
-	public UserSQLLocal() {
-		try {
-			Class.forName("org.sqlite.JDBC");
-			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
-
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public Users getUserLogin(String userNickname, String password) {
 		try {
-			try {
-				Class.forName("org.sqlite.JDBC");
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
-			System.out.println("Conexion embebida conectada.");
+			establecerConexion();
 
 			statement = connection.createStatement();
 			String query = "select * from users where nickname = '" + userNickname + "' and password = '" + password
@@ -53,13 +40,12 @@ public class UserSQLLocal implements IUser {
 			}
 
 			statement.close();
-			this.connection.close();
-			
+			cerrarConexion();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return userLogged;
 	}
 
@@ -70,30 +56,26 @@ public class UserSQLLocal implements IUser {
 
 	@Override
 	public Users getUserLogged() {
-		try {
-			this.connection.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return userLogged ;
+		cerrarConexion();
+		return userLogged;
 	}
 
 	@Override
 	public String getUserLoggedPermission() {
 		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+			establecerConexion();
 			statement = connection.createStatement();
-
 
 			String query = "select * from permisos where permisoID = " + userLogged.getPermiso_id();
 			resultSet = statement.executeQuery(query);
+			String result=null;
 
 			while (resultSet.next()) {
-				return resultSet.getString("permiso_name");
+				result = resultSet.getString("permiso_name");
 			}
-			connection.close();
-
+			cerrarConexion();
+			return result;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -104,39 +86,32 @@ public class UserSQLLocal implements IUser {
 	@Override
 	public void añadirUsuario(Users user) {
 		try {
-			this.statement = connection.createStatement();
-			if (this.connection != null) {
-				this.connection = DriverManager
-						.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+				establecerConexion();
+				this.statement = connection.createStatement();
 				String consulta = "insert into users" + " VALUES(" + user.getUserID() + ", '" + user.getNickname()
 						+ "', '" + user.getComplete_name() + "', '" + user.getPassword() + "', '" + user.getMail()
 						+ "', " + null + ", " + user.getPermiso_id() + ");";
-				System.out.println(consulta);
 				this.statement.executeUpdate(consulta);
 				this.statement.close();
-				this.connection.close();
-			} else {
-				System.out.println("eee no hay conexion men");
-			}
+				cerrarConexion();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		ficheroReplica(user);
 	}
 
 	@Override
 	public ArrayList<Users> getScrumMasterUsers() {
-		ArrayList<Users> smUsers=new ArrayList<>();
-		
+		ArrayList<Users> smUsers = new ArrayList<>();
+
 		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+			establecerConexion();
 			statement = connection.createStatement();
 
 			String query = "select * from users where permisoID = " + 3;
 			resultSet = statement.executeQuery(query);
 			while (resultSet.next()) {
-				Users user=new Users();
+				Users user = new Users();
 				user.setUserID(resultSet.getInt("userID"));
 				user.setNickname(resultSet.getString("nickname"));
 				user.setPassword(resultSet.getString("password"));
@@ -146,29 +121,28 @@ public class UserSQLLocal implements IUser {
 				user.setPermiso_id(resultSet.getInt("permisoID"));
 				smUsers.add(user);
 			}
-
-			this.connection.close();
 			statement.close();
+			cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return smUsers;
 	}
 
 	@Override
 	public ArrayList<Users> getProductOwnerUsers() {
 
-		ArrayList<Users> poUsers=new ArrayList<>();
-		
+		ArrayList<Users> poUsers = new ArrayList<>();
+
 		try {
-			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+			establecerConexion();
 			statement = connection.createStatement();
 
 			String query = "select * from users where permisoID = " + 4;
 			resultSet = statement.executeQuery(query);
 			while (resultSet.next()) {
-				Users user=new Users();
+				Users user = new Users();
 				user.setUserID(resultSet.getInt("userID"));
 				user.setNickname(resultSet.getString("nickname"));
 				user.setPassword(resultSet.getString("password"));
@@ -179,12 +153,51 @@ public class UserSQLLocal implements IUser {
 				poUsers.add(user);
 			}
 
-			this.connection.close();
 			statement.close();
+			cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return poUsers;
+	}
+	
+	public void ficheroReplica(Users user) {
+		File replica=new File("src/main/resources/registros.obj");
+		if (!replica.exists()) {
+			try {
+				replica.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(replica,true));
+			oos.writeObject(user);
+			oos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void establecerConexion() {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/bd_scrumprojectmanager.db");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void cerrarConexion() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package main.modelos;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,14 +13,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class Users {
+public class Users implements Serializable{
+	
 	private Integer userID,group_id,permiso_id;
 	private String nickname,complete_name,password,mail;
 	
 	public Users() {
 		
 	}
-	
+
 	public Users(Integer userID, Integer group_id, Integer permiso_id, String nickname, String complete_name,
 			String password, String mail) {
 		this.userID = userID;
@@ -84,5 +87,11 @@ public class Users {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	
+	@Override
+	public String toString() {
+		return "Users [userID=" + userID + ", group_id=" + group_id + ", permiso_id=" + permiso_id + ", nickname="
+				+ nickname + ", complete_name=" + complete_name + ", password=" + password + ", mail=" + mail + "]";
 	}
 }
