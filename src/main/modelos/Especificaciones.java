@@ -14,13 +14,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="specifications")
 public class Especificaciones {
-	private Integer specID,projectID,SprintID;
+	private Integer specID,projectID,SprintID,horas;
 	private String description;
 
 	
 	//Setters
 	public void setSpecID(Integer specID) {
 		this.specID = specID;
+	}
+	public void setHoras(Integer horas) {
+		this.horas = horas;
 	}
 	public void setProjectID(Integer projectID) {
 		this.projectID = projectID;
@@ -42,6 +45,11 @@ public class Especificaciones {
 	@Column(name="projectID")
 	public Integer getProjectID() {
 		return projectID;
+	}
+	
+	@Column(name="horas")
+	public Integer getHoras() {
+		return horas;
 	}
 	
 	@Column(name="sprintID")
