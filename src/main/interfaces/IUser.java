@@ -28,4 +28,5 @@ public interface IUser {
 	public ArrayList<Users> getProductOwnerUsers();
 	public void establecerConexion();
 	public void cerrarConexion();
+	public String getUserNameByID(int id);
 }

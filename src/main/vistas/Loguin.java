@@ -116,6 +116,7 @@ public class Loguin implements ActionListener {
 				} else if (iuser.getUserLogged().getPermiso_id() == 1) {
 					pf.getMntmCrearUsuario().setVisible(false);
 					pf.getMntmCrearProyecto().setVisible(false);
+					pf.getMntmBuscarmodificarUsuarios().setVisible(false);
 				} else if (iuser.getUserLogged().getPermiso_id() == 2) {
 					pf.getMntmCrearProyecto().setVisible(false);
 					pf.getMntmBuscarmodificarUsuarios().setVisible(false);

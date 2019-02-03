@@ -9,15 +9,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import main.interfaces.IProject;
+import main.interfaces.IUser;
 import main.modelos.Proyectos;
 import main.modelos.Users;
 
-public class ProyectoSQLLocal implements IProject{
+public class ProyectoSQLLocal implements IProject {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
@@ -25,19 +27,19 @@ public class ProyectoSQLLocal implements IProject{
 	private EntityManager entityManager;
 
 	@Override
-	public void insertarProyecto(Proyectos proy) {		
+	public void insertarProyecto(Proyectos proy) {
 		try {
 			establecerConexion();
-				statement = connection.createStatement();
-				String consulta = "insert into projects" + " VALUES(" + proy.getProjectID() + ", '" + proy.getProject_name()
-						+ "', '" + proy.getDescripcion() + "', " + proy.getProductOwnerID() + ", " + proy.getScrumMasterID()
-						+ ");";
-				this.statement.executeUpdate(consulta);
-				this.statement.close();
-				
-				cerrarConexion();
-				ficheroReplica(proy);
-				
+			statement = connection.createStatement();
+			String consulta = "insert into projects" + " VALUES(" + proy.getProjectID() + ", '" + proy.getProject_name()
+					+ "', '" + proy.getDescripcion() + "', " + proy.getProductOwnerID() + ", " + proy.getScrumMasterID()
+					+ ");";
+			this.statement.executeUpdate(consulta);
+			this.statement.close();
+
+			cerrarConexion();
+			ficheroReplica(proy);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,23 +53,23 @@ public class ProyectoSQLLocal implements IProject{
 			statement = connection.createStatement();
 			String query = "select * from projects where project_name= '" + proy.getProject_name() + "'";
 			resultSet = statement.executeQuery(query);
-			
+
 			while (resultSet.next()) {
 				duplicateProjectName.setProject_name(resultSet.getString("project_name"));
 			}
-			
+
 			statement.close();
 			cerrarConexion();
-			
+
 			return duplicateProjectName.getProject_name();
-			
+
 		} catch (SQLException e) {
 			return null;
 		}
 	}
-	
+
 	public void ficheroReplica(Proyectos proy) {
-		File replica=new File("src/main/resources/registros.obj");
+		File replica = new File("src/main/resources/registros.obj");
 		if (!replica.exists()) {
 			try {
 				replica.createNewFile();
@@ -76,7 +78,7 @@ public class ProyectoSQLLocal implements IProject{
 			}
 		}
 		try {
-			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(replica,true));
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(replica, true));
 			oos.writeObject(proy);
 			oos.close();
 		} catch (IOException e) {
@@ -94,7 +96,7 @@ public class ProyectoSQLLocal implements IProject{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -104,5 +106,46 @@ public class ProyectoSQLLocal implements IProject{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ArrayList<Proyectos> getProjectsByID(IUser iuser) {
+		ArrayList<Proyectos> proyectos = new ArrayList<>();
+		try {
+			establecerConexion();
+			statement = connection.createStatement();
+
+			String query;
+
+			int permisoID = iuser.getUserLogged().getPermiso_id();
+
+			if (permisoID == 1) {
+				query = "select * from projects where projectID = (select projectID from usersProjects where userID="
+						+ iuser.getUserLogged().getUserID() + ")";
+				resultSet = statement.executeQuery(query);
+			} else if (permisoID == 4) {
+				query = "select * from projects where productOwnerID=" + iuser.getUserLogged().getUserID();
+				resultSet = statement.executeQuery(query);
+			} else if (permisoID == 3) {
+				query = "select * from projects";
+				resultSet = statement.executeQuery(query);
+			}
+			
+			while (resultSet.next()) {
+				Proyectos proy = new Proyectos();
+				proy.setProjectID(resultSet.getInt("projectID"));
+				proy.setProject_name(resultSet.getString("project_name"));
+				proy.setDescripcion(resultSet.getString("descripcion"));
+				proy.setScrumMasterID(resultSet.getInt("scrumMasterID"));
+				proy.setProductOwnerID(resultSet.getInt("productOwnerID"));
+				proyectos.add(proy);
+			}
+			statement.close();
+			cerrarConexion();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return proyectos;
 	}
 }

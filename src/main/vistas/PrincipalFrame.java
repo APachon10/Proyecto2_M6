@@ -47,7 +47,7 @@ public class PrincipalFrame extends JFrame {
 		pf=this;
 		this.setVisible(true);
 		this.setTitle("Gestor de Proyectos");
-		this.setBounds(100, 100, 596, 587);
+		this.setBounds(100, 100, 700, 700);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		panel = new JPanel();
@@ -118,12 +118,21 @@ public class PrincipalFrame extends JFrame {
 		mntmCrearProyecto = new JMenuItem("Crear Proyecto");
 		mntmCrearProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				pf.getInternalFrame().getContentPane().removeAll();
+				pf.getInternalFrame().repaint();
 				new CrearProyecto(iuser,pf);
 			}
 		});
 		mnProyecto.add(mntmCrearProyecto);
 
 		mntmMostrarProyectos = new JMenuItem("Mostrar Proyectos");
+		mntmMostrarProyectos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pf.getInternalFrame().getContentPane().removeAll();
+				pf.getInternalFrame().repaint();
+				new MostrarProyectos(iuser,pf);
+			}
+		});
 		mnProyecto.add(mntmMostrarProyectos);
 
 		mnUsuario = new JMenu("Usuarios");

@@ -11,6 +11,10 @@ import javax.persistence.Table;
 @Table(name="usersprojects")
 public class usersProjects {
 	private int userID,projectID;
+	@Override
+	public String toString() {
+		return "usersProjects [userID=" + userID + ", projectID=" + projectID + "]";
+	}
 	//Getters
 	@Column(name ="userID")
 	@Id

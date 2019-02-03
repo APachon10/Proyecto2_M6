@@ -121,6 +121,7 @@ public class UserSQLLocal implements IUser {
 				user.setPermiso_id(resultSet.getInt("permisoID"));
 				smUsers.add(user);
 			}
+			
 			statement.close();
 			cerrarConexion();
 		} catch (SQLException e) {
@@ -199,5 +200,29 @@ public class UserSQLLocal implements IUser {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String getUserNameByID(int id) {
+		Users usuario=null;
+		try {
+			establecerConexion();
+			statement = connection.createStatement();
+			String query = "select * from users where userID="+id;
+			resultSet = statement.executeQuery(query);
+			
+			
+			while (resultSet.next()) {
+				usuario = new Users();
+				usuario.setComplete_name(resultSet.getString("complete_name"));			
+			}
+			
+			statement.close();
+			cerrarConexion();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return usuario.getComplete_name();
 	}
 }

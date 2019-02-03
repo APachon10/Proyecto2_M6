@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import main.interfaces.IProject;
+import main.interfaces.IUser;
 import main.modelos.Proyectos;
 
 public class ProyectoSQLRemota implements IProject {
@@ -78,6 +80,30 @@ public class ProyectoSQLRemota implements IProject {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ArrayList<Proyectos> getProjectsByID(IUser iuser) {
+
+		ArrayList<Proyectos> proyectos = null;
+		int permisoID = iuser.getUserLogged().getPermiso_id();
+
+		if (permisoID == 1) {
+			proyectos = (ArrayList<Proyectos>) this.entityManager.createQuery(
+					"select p from Proyectos p where projectID = (select x.projectID from usersProjects x where userID="
+							+ iuser.getUserLogged().getUserID() + ")")
+					.getResultList();
+
+		} else if (permisoID == 4) {
+			proyectos = (ArrayList<Proyectos>) this.entityManager
+					.createQuery("select p from Proyectos p where productOwnerID=" + iuser.getUserLogged().getUserID())
+					.getResultList();
+		} else if (permisoID == 3) {
+			proyectos = (ArrayList<Proyectos>) this.entityManager.createQuery("select p from Proyectos p")
+					.getResultList();
+		}
+
+		return proyectos;
 	}
 
 }

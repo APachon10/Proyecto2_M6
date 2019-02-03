@@ -142,4 +142,10 @@ public class UserSQLRemota implements IUser {
 		}
 	}
 
+	@Override
+	public String getUserNameByID(int id) {
+		Users user=(Users) entityManager.createQuery("select u from Users u where userID="+id).getSingleResult();	
+		return user.getComplete_name();
+	}
+
 }
