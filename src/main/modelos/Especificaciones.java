@@ -60,4 +60,9 @@ public class Especificaciones {
 	public String getDescription() {
 		return description;
 	}
+	@Override
+	public String toString() {
+		return "Especificaciones [specID=" + specID + ", projectID=" + projectID + ", SprintID=" + SprintID + ", horas="
+				+ horas + ", description=" + description + "]";
+	}
 }

@@ -23,8 +23,6 @@ public class ProyectoSQLLocal implements IProject {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
-	private EntityManagerFactory factory;
-	private EntityManager entityManager;
 
 	@Override
 	public void insertarProyecto(Proyectos proy) {

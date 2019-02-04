@@ -1,5 +1,7 @@
 package main.vistas;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -149,6 +151,15 @@ public class MostrarProyectos extends JFrame {
 				textFieldSM.setText(iuser.getUserNameByID(proyectos.get(table.getSelectedRow()).getScrumMasterID()));
 				textFieldD.setText(proyectos.get(table.getSelectedRow()).getDescripcion());
 				
+			}
+		});
+		
+		btnMostrarEspecificaciones.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pf.getInternalFrame().getContentPane().removeAll();
+				pf.getInternalFrame().repaint();
+				new MostrarEspecificaciones(iuser, pf, proyectos.get(table.getSelectedRow()));
 			}
 		});
 	}
