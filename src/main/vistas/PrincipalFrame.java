@@ -1,7 +1,5 @@
 package main.vistas;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -9,8 +7,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JButton;
-import java.awt.Insets;
-import java.awt.MenuBar;
 
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;

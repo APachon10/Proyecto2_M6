@@ -22,7 +22,6 @@ import main.interfaces.IUser;
 import main.modelos.Permisos;
 import main.modelos.Proyectos;
 import main.modelos.Users;
-import main.vistas.VentanaProyecto;
 
 public class UserSQLRemota implements IUser {
 
