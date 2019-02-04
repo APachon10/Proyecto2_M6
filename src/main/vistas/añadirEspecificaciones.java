@@ -2,20 +2,29 @@ package main.vistas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
+
+import main.modelos.Sprints;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
+import main.modelos.Especificaciones;
 
 public class añadirEspecificaciones extends JFrame {
 
@@ -25,6 +34,8 @@ public class añadirEspecificaciones extends JFrame {
 	private JTextArea DescArea;
 	private JSpinner num_Horas;
 	private JButton btnAñadir;
+	private Sprints sprints;
+	private Especificaciones especificacion;
 	
 	public añadirEspecificaciones() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,6 +105,10 @@ public class añadirEspecificaciones extends JFrame {
 		num_Sprints.addItem("Sprint 2");
 		num_Sprints.addItem("Sprint 3");
 		
+		//MOSTRAR JOPTIONPANE AL PULSAR EL BOTON AÑADIR
+		btnAñadir.addActionListener(new ActionListener() {
+			
+		} );
 		
 		this.setVisible(true);
 	}
