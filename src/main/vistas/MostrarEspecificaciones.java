@@ -91,9 +91,11 @@ public class MostrarEspecificaciones {
 		btnAnadir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				pf.getInternalFrame().getContentPane().removeAll();
-				pf.getInternalFrame().repaint();
-				new NuevaTarea(iuser, pf, proy);
+				if (iuser.getUserLogged().getPermiso_id()==4) {
+					pf.getInternalFrame().getContentPane().removeAll();
+					pf.getInternalFrame().repaint();
+					new NuevaTarea(iuser, pf, proy);
+				}
 			}
 		});
 	}

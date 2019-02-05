@@ -95,7 +95,9 @@ public class CrearProyecto extends JFrame{
 					proy.setDescripcion(textField_d.getText());
 					proy.setScrumMasterID(Integer.parseInt(comboBox_sm.getSelectedItem().toString().substring(0,1)));
 					proy.setProductOwnerID(Integer.parseInt(comboBox_po.getSelectedItem().toString().substring(0,1)));
-					iproject.insertarProyecto(proy);
+					iproject.insertarProyecto(proy,true);
+					textField_pn.setText("");
+					textField_d.setText("");
 				} else {
 					labelErrorProy.setText("ERROR - Ya existe un proyecto llamado: "+iproject.getProjectName(proy));;
 					labelErrorProy.setVisible(true);

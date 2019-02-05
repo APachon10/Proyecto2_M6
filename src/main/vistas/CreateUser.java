@@ -2,17 +2,14 @@ package main.vistas;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,10 +21,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import main.interfaces.IUser;
 import main.modelos.Users;
-
 import javax.swing.JComboBox;
 
 public class CreateUser {
@@ -203,7 +198,7 @@ public class CreateUser {
 							user.setPassword(String.valueOf(txtPassword.getPassword()));
 							user.setMail(txtMail.getText());
 							user.setPermiso_id(idPermiso(comboBox));
-							iuser.añadirUsuario(user);
+							iuser.añadirUsuario(user,true);
 							txtName.setText("");
 							txtLogin.setText("");
 							txtPassword.setText("");

@@ -115,19 +115,19 @@ public class Loguin implements ActionListener {
 					pf.getMntmCrearUsuario().setVisible(false);
 					pf.getMntmCrearProyecto().setVisible(false);
 					pf.getMntmBuscarmodificarUsuarios().setVisible(false);
+					new MostrarProyectos(iuser, pf);
 				} else if (iuser.getUserLogged().getPermiso_id() == 2) {
 					pf.getMntmCrearProyecto().setVisible(false);
 					pf.getMntmBuscarmodificarUsuarios().setVisible(false);
 					pf.getMntmMostrarProyectos().setVisible(false);
 					new CreateUser(iuser,pf);
 				}else if (iuser.getUserLogged().getPermiso_id() == 4) {
-					
 					pf.getMntmCrearUsuario().setVisible(false);
 					pf.getMntmCrearProyecto().setVisible(false);
+					new MostrarProyectos(iuser, pf);
 				}
 				pf.getLblUser().setVisible(true);
 				pf.getLabelNickPermiso().setVisible(true);
-				
 				pf.getLabelNickPermiso().setText(iuser.getUserLogged().getNickname()+"("+iuser.getUserLoggedPermission()+")");;				
 			}
 		}

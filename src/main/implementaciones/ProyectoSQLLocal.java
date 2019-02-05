@@ -1,7 +1,9 @@
 package main.implementaciones;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
@@ -10,14 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
 import main.interfaces.IProject;
 import main.interfaces.IUser;
 import main.modelos.Proyectos;
-import main.modelos.Users;
 
 public class ProyectoSQLLocal implements IProject {
 	private Connection connection;
@@ -25,7 +22,7 @@ public class ProyectoSQLLocal implements IProject {
 	private ResultSet resultSet;
 
 	@Override
-	public void insertarProyecto(Proyectos proy) {
+	public void insertarProyecto(Proyectos proy,boolean r) {
 		try {
 			establecerConexion();
 			statement = connection.createStatement();
@@ -67,7 +64,7 @@ public class ProyectoSQLLocal implements IProject {
 	}
 
 	public void ficheroReplica(Proyectos proy) {
-		File replica = new File("src/main/resources/registros.obj");
+		File replica = new File("src/main/resources/registros");
 		if (!replica.exists()) {
 			try {
 				replica.createNewFile();
@@ -75,10 +72,13 @@ public class ProyectoSQLLocal implements IProject {
 				e.printStackTrace();
 			}
 		}
+		String p = "Proyecto-" + proy.getProjectID() + "-" + proy.getProject_name() + "-" + proy.getDescripcion() + "-"
+				+ proy.getProductOwnerID() + "-" + proy.getScrumMasterID();
 		try {
-			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(replica, true));
-			oos.writeObject(proy);
-			oos.close();
+			BufferedWriter bw=new BufferedWriter(new FileWriter(replica,true));
+			bw.write(p);
+			bw.append("\r\n");
+			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -128,7 +128,7 @@ public class ProyectoSQLLocal implements IProject {
 				query = "select * from projects";
 				resultSet = statement.executeQuery(query);
 			}
-			
+
 			while (resultSet.next()) {
 				Proyectos proy = new Proyectos();
 				proy.setProjectID(resultSet.getInt("projectID"));
@@ -140,7 +140,7 @@ public class ProyectoSQLLocal implements IProject {
 			}
 			statement.close();
 			cerrarConexion();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

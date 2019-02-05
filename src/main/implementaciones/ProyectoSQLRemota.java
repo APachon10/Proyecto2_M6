@@ -5,12 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import main.interfaces.IProject;
 import main.interfaces.IUser;
 import main.modelos.Proyectos;
@@ -27,11 +24,13 @@ public class ProyectoSQLRemota implements IProject {
 	}
 
 	@Override
-	public void insertarProyecto(Proyectos proy) {
+	public void insertarProyecto(Proyectos proy,boolean r) {
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(proy);
 		this.entityManager.getTransaction().commit();
-		replicaProyectos(proy);
+		if (r) {
+			replicaProyectos(proy);	
+		}
 	}
 
 	private void replicaProyectos(Proyectos proy) {

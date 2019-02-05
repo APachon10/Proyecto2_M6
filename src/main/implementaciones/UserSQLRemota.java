@@ -1,26 +1,16 @@
 package main.implementaciones;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import main.interfaces.IUser;
 import main.modelos.Permisos;
-import main.modelos.Proyectos;
 import main.modelos.Users;
 
 public class UserSQLRemota implements IUser {
@@ -85,12 +75,14 @@ public class UserSQLRemota implements IUser {
 	}
 
 	@Override
-	public void añadirUsuario(Users user) {
+	public void añadirUsuario(Users user,boolean r) {
 		this.users.add(user);
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(user);
 		this.entityManager.getTransaction().commit();
-		replicarUser(user);
+		if (r) {
+			replicarUser(user);	
+		}
 	}
 
 	private void replicarUser(Users user) {

@@ -5,13 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import main.interfaces.ISprint;
-import main.modelos.Especificaciones;
 import main.modelos.Sprints;
 
 public class SprintsSQLRemota implements ISprint{

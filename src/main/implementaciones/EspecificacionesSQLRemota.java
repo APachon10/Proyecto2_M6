@@ -17,7 +17,6 @@ import main.modelos.Especificaciones;
 public class EspecificacionesSQLRemota implements IEspecificaciones {
 	private Connection connection;
 	private Statement statement;
-	private ResultSet resultSet;
 	private EntityManagerFactory factory;
 	private EntityManager entityManager;
 
@@ -56,14 +55,30 @@ public class EspecificacionesSQLRemota implements IEspecificaciones {
 	}
 
 	@Override
-	public void insertarEspecificacion(Especificaciones esp) {
+	public void insertarEspecificacion(Especificaciones esp, boolean r) {
 		this.entityManager.getTransaction().begin();
 		this.entityManager.persist(esp);
 		this.entityManager.getTransaction().commit();
-		//replicaEspecificaciones(esp);
+		if (r) {
+			replicaEspecificaciones(esp);
+		}
+
 	}
 
 	private void replicaEspecificaciones(Especificaciones esp) {
-		
+		try {
+			establecerConexion();
+			statement = connection.createStatement();
+			String consulta = "insert into specifications" + " VALUES(" + esp.getSpecID() + ",'" + esp.getDescription()
+					+ "'," + esp.getHoras() + "," + esp.getProjectID() + "," + esp.getSprintID() + ");";
+
+			this.statement.executeUpdate(consulta);
+			this.statement.close();
+
+			cerrarConexion();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

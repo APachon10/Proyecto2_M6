@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import main.interfaces.ISprint;
-import main.modelos.Especificaciones;
 import main.modelos.Sprints;
 
 public class SprintsSQLLocal implements ISprint{

@@ -1,16 +1,17 @@
 package main.implementaciones;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import main.interfaces.IEspecificaciones;
-import main.interfaces.IProject;
 import main.modelos.Especificaciones;
-import main.modelos.Proyectos;
 
 public class EspecificacionesSQLLocal implements IEspecificaciones {
 
@@ -70,7 +71,7 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 	}
 
 	@Override
-	public void insertarEspecificacion(Especificaciones esp) {
+	public void insertarEspecificacion(Especificaciones esp,boolean r) {
 		try {
 			establecerConexion();
 			statement = connection.createStatement();
@@ -81,7 +82,7 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 			this.statement.close();
 
 			cerrarConexion();
-			//ficheroReplica(esp);
+			ficheroReplica(esp);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,6 +90,23 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 	}
 
 	private void ficheroReplica(Especificaciones esp) {
-
+		File replica = new File("src/main/resources/registros");
+		if (!replica.exists()) {
+			try {
+				replica.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		String e = "Especificacion-" + esp.getSpecID() + "-" + esp.getDescription() + "-" + esp.getHoras() + "-"
+				+ esp.getProjectID() + "-" + esp.getSprintID();
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(replica, true));
+			bw.write(e);
+			bw.append("\r\n");
+			bw.close();
+		} catch (IOException a) {
+			a.printStackTrace();
+		}
 	}
 }

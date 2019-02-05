@@ -1,7 +1,9 @@
 package main.implementaciones;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
@@ -10,9 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import main.interfaces.IUser;
-import main.modelos.Proyectos;
 import main.modelos.Users;
 
 public class UserSQLLocal implements IUser {
@@ -68,14 +68,14 @@ public class UserSQLLocal implements IUser {
 
 			String query = "select * from permisos where permisoID = " + userLogged.getPermiso_id();
 			resultSet = statement.executeQuery(query);
-			String result=null;
+			String result = null;
 
 			while (resultSet.next()) {
 				result = resultSet.getString("permiso_name");
 			}
 			cerrarConexion();
 			return result;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -84,16 +84,16 @@ public class UserSQLLocal implements IUser {
 	}
 
 	@Override
-	public void añadirUsuario(Users user) {
+	public void añadirUsuario(Users user,boolean r) {
 		try {
-				establecerConexion();
-				this.statement = connection.createStatement();
-				String consulta = "insert into users" + " VALUES(" + user.getUserID() + ", '" + user.getNickname()
-						+ "', '" + user.getComplete_name() + "', '" + user.getPassword() + "', '" + user.getMail()
-						+ "', " + null + ", " + user.getPermiso_id() + ");";
-				this.statement.executeUpdate(consulta);
-				this.statement.close();
-				cerrarConexion();
+			establecerConexion();
+			this.statement = connection.createStatement();
+			String consulta = "insert into users" + " VALUES(" + user.getUserID() + ", '" + user.getNickname() + "', '"
+					+ user.getComplete_name() + "', '" + user.getPassword() + "', '" + user.getMail() + "', " + null
+					+ ", " + user.getPermiso_id() + ");";
+			this.statement.executeUpdate(consulta);
+			this.statement.close();
+			cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -121,7 +121,7 @@ public class UserSQLLocal implements IUser {
 				user.setPermiso_id(resultSet.getInt("permisoID"));
 				smUsers.add(user);
 			}
-			
+
 			statement.close();
 			cerrarConexion();
 		} catch (SQLException e) {
@@ -162,9 +162,9 @@ public class UserSQLLocal implements IUser {
 
 		return poUsers;
 	}
-	
+
 	public void ficheroReplica(Users user) {
-		File replica=new File("src/main/resources/registros.obj");
+		File replica = new File("src/main/resources/registros");
 		if (!replica.exists()) {
 			try {
 				replica.createNewFile();
@@ -172,10 +172,13 @@ public class UserSQLLocal implements IUser {
 				e.printStackTrace();
 			}
 		}
+		String u = "User-" + user.getUserID() + "-" + user.getNickname() + "-" + user.getComplete_name() + "-"
+				+ user.getPassword() + "-" + user.getMail() + "-" + user.getGroup_id() + "-" + user.getPermiso_id();
 		try {
-			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(replica,true));
-			oos.writeObject(user);
-			oos.close();
+			BufferedWriter bw = new BufferedWriter(new FileWriter(replica, true));
+			bw.write(u);
+			bw.append("\r\n");
+			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -204,25 +207,24 @@ public class UserSQLLocal implements IUser {
 
 	@Override
 	public String getUserNameByID(int id) {
-		Users usuario=null;
+		Users usuario = null;
 		try {
 			establecerConexion();
 			statement = connection.createStatement();
-			String query = "select * from users where userID="+id;
+			String query = "select * from users where userID=" + id;
 			resultSet = statement.executeQuery(query);
-			
-			
+
 			while (resultSet.next()) {
 				usuario = new Users();
-				usuario.setComplete_name(resultSet.getString("complete_name"));			
+				usuario.setComplete_name(resultSet.getString("complete_name"));
 			}
-			
+
 			statement.close();
 			cerrarConexion();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return usuario.getComplete_name();
 	}
 }

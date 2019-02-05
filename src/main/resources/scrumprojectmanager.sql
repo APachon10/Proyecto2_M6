@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-01-2019 a las 15:33:46
+-- Tiempo de generación: 06-02-2019 a las 00:01:00
 -- Versión del servidor: 10.1.32-MariaDB
 -- Versión de PHP: 7.2.5
 
@@ -63,7 +63,9 @@ CREATE TABLE `projects` (
 
 INSERT INTO `projects` (`projectID`, `project_name`, `descripcion`, `productOwnerID`, `scrumMasterID`) VALUES
 (1, 'Gestor de proyectos', 'Aplicacion que gestione todo lo relacionado a proyectos SCRUM', 4, 3),
-(4, 'Car Config', 'Configurador de coches', 6, 5);
+(4, 'Car Config', 'Configurador de coches', 6, 5),
+(8, 'Zeus', 'Gestor de electricidad', 4, 5),
+(9, 'Siniestro', 'Gestor de seguros de vida', 6, 3);
 
 -- --------------------------------------------------------
 
@@ -74,9 +76,26 @@ INSERT INTO `projects` (`projectID`, `project_name`, `descripcion`, `productOwne
 CREATE TABLE `specifications` (
   `specID` int(11) NOT NULL,
   `description` varchar(100) NOT NULL,
+  `horas` int(15) NOT NULL,
   `projectID` int(11) NOT NULL,
   `sprintID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `specifications`
+--
+
+INSERT INTO `specifications` (`specID`, `description`, `horas`, `projectID`, `sprintID`) VALUES
+(1, 'Generar contraseña', 1, 1, 1),
+(2, 'Generar Usuario', 1, 1, 1),
+(3, 'Pantalla coches', 5, 1, 2),
+(4, 'Singleton', 4, 1, 3),
+(5, 'Pantalla Especificaciones', 4, 4, 4),
+(6, 'Pantalla Crear Usuario', 3, 4, 5),
+(7, 'Pantalla Loguin', 1, 4, 5),
+(8, 'Generar Potencia', 3, 8, 6),
+(9, 'Generar Usuario', 2, 8, 7),
+(10, 'Generar Seguro', 5, 9, 8);
 
 -- --------------------------------------------------------
 
@@ -88,6 +107,20 @@ CREATE TABLE `sprints` (
   `sprintID` int(11) NOT NULL,
   `projectID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sprints`
+--
+
+INSERT INTO `sprints` (`sprintID`, `projectID`) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 4),
+(5, 4),
+(6, 8),
+(7, 8),
+(8, 9);
 
 -- --------------------------------------------------------
 
@@ -133,7 +166,10 @@ INSERT INTO `users` (`userID`, `nickname`, `complete_name`, `password`, `mail`, 
 (3, 'dsoubouti', 'Darius Sobouti', '123123', 'dsoubouti@hotmail.com', 1, 3),
 (4, 'rcarballo', 'Roger Carballo Rodriguez', '123123', 'rcarballo@everis.com', NULL, 4),
 (5, 'lzabala', 'Leandro Zabala', '123123', 'lzabala@gmail.com', NULL, 3),
-(6, 'despeja', 'David Espeja', '123123', 'despeja@gmail.com', NULL, 4);
+(6, 'despeja', 'David Espeja', '123123', 'despeja@gmail.com', NULL, 4),
+(7, 'ASalas', 'Adrian Salas', '123123', 'asalas@gmail.com', NULL, 1),
+(8, 'AMengual', 'Alexis Mengual', '123123', 'amengual@gmail.com', NULL, 1),
+(9, 'DMateo', 'David Mateo', '123123', 'dmateo@gmail.com', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -154,7 +190,10 @@ INSERT INTO `usersprojects` (`userID`, `projectID`) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
-(4, 1);
+(4, 1),
+(7, 8),
+(8, 9),
+(9, 8);
 
 --
 -- Índices para tablas volcadas
@@ -224,19 +263,19 @@ ALTER TABLE `permisos`
 -- AUTO_INCREMENT de la tabla `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `specifications`
 --
 ALTER TABLE `specifications`
-  MODIFY `specID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `specID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `sprints`
 --
 ALTER TABLE `sprints`
-  MODIFY `sprintID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sprintID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usergroups`
@@ -248,7 +287,7 @@ ALTER TABLE `usergroups`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
