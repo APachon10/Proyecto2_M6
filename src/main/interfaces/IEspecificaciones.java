@@ -7,6 +7,7 @@ import main.modelos.Proyectos;
 
 public interface IEspecificaciones {
 	public ArrayList<Especificaciones> getEspecificacionesByProjectID(int id);
+	public void insertarEspecificacion(Especificaciones esp);
 	public void establecerConexion();
 	public void cerrarConexion();
 }

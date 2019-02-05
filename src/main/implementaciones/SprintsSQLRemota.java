@@ -2,7 +2,6 @@ package main.implementaciones;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -11,26 +10,26 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import main.interfaces.IEspecificaciones;
+import main.interfaces.ISprint;
 import main.modelos.Especificaciones;
+import main.modelos.Sprints;
 
-public class EspecificacionesSQLRemota implements IEspecificaciones {
+public class SprintsSQLRemota implements ISprint{
 	private Connection connection;
 	private Statement statement;
-	private ResultSet resultSet;
 	private EntityManagerFactory factory;
 	private EntityManager entityManager;
-
-	public EspecificacionesSQLRemota() {
+	
+	public SprintsSQLRemota() {
 		factory = Persistence.createEntityManagerFactory("scrumprojectmanager");
 		entityManager = factory.createEntityManager();
 	}
 
 	@Override
-	public ArrayList<Especificaciones> getEspecificacionesByProjectID(int id) {
-		ArrayList<Especificaciones> esp = (ArrayList<Especificaciones>) this.entityManager
-				.createQuery("select e from Especificaciones e where projectID=" + id).getResultList();
-		return esp;
+	public ArrayList<Sprints> getSprintsByProjectD(int id) {
+		ArrayList<Sprints> sp = (ArrayList<Sprints>) this.entityManager
+				.createQuery("select e from Sprints e where projectID=" + id).getResultList();
+		return sp;
 	}
 
 	@Override
@@ -43,7 +42,6 @@ public class EspecificacionesSQLRemota implements IEspecificaciones {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -55,15 +53,4 @@ public class EspecificacionesSQLRemota implements IEspecificaciones {
 		}
 	}
 
-	@Override
-	public void insertarEspecificacion(Especificaciones esp) {
-		this.entityManager.getTransaction().begin();
-		this.entityManager.persist(esp);
-		this.entityManager.getTransaction().commit();
-		//replicaEspecificaciones(esp);
-	}
-
-	private void replicaEspecificaciones(Especificaciones esp) {
-		
-	}
 }

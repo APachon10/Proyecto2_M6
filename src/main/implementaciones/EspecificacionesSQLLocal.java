@@ -17,7 +17,7 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 	private Connection connection;
 	private Statement statement;
 	private ResultSet resultSet;
-	
+
 	@Override
 	public ArrayList<Especificaciones> getEspecificacionesByProjectID(int id) {
 		ArrayList<Especificaciones> esp = new ArrayList<>();
@@ -25,10 +25,9 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 			establecerConexion();
 			statement = connection.createStatement();
 
-			String query = "select * from specifications where projectID="+id;
-				resultSet = statement.executeQuery(query);
-			
-			
+			String query = "select * from specifications where projectID=" + id;
+			resultSet = statement.executeQuery(query);
+
 			while (resultSet.next()) {
 				Especificaciones espec = new Especificaciones();
 				espec.setSpecID(resultSet.getInt("specID"));
@@ -36,12 +35,12 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 				espec.setHoras(resultSet.getInt("horas"));
 				espec.setProjectID(resultSet.getInt("specID"));
 				espec.setSprintID(resultSet.getInt("sprintID"));
-	
+
 				esp.add(espec);
 			}
 			statement.close();
 			cerrarConexion();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,5 +67,28 @@ public class EspecificacionesSQLLocal implements IEspecificaciones {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void insertarEspecificacion(Especificaciones esp) {
+		try {
+			establecerConexion();
+			statement = connection.createStatement();
+			String consulta = "insert into specifications" + " VALUES(" + esp.getSpecID() + ",'" + esp.getDescription()
+					+ "'," + esp.getHoras() + "," + esp.getProjectID() + "," + esp.getSprintID() + ");";
+
+			this.statement.executeUpdate(consulta);
+			this.statement.close();
+
+			cerrarConexion();
+			//ficheroReplica(esp);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void ficheroReplica(Especificaciones esp) {
+
 	}
 }
