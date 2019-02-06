@@ -10,21 +10,22 @@ IMPORTANTE para que funcione correctamente la conexión a la BD Remota, comprueba
 
 Lista de los usuarios:
 
-Usuario: pachon
-Contraseña: 123123
-Tipo de Usuario: 1.Developer
+	Usuario: pachon Contraseña: 123123 Tipo de Usuario: 1.Developer
 
-Usuario: vsalas
-Contraseña: 123123
-Tipo de Usuario: 2.Administrador
+	Usuario: vsalas Contraseña: 123123 Tipo de Usuario: 2.Administrador
 
-Usuario: bsoubouti
-Contraseña: 123123
-Tipo de Usuario: 3.Scrum Manager
+	Usuario: bsoubouti Contraseña: 123123 Tipo de Usuario: 3.Scrum Manager
 
-Usuario: rcarballo
-Contraseña: 123123
-Tipo de Usuario: 4.Product Owner
+	Usuario: rcarballo Contraseña: 123123 Tipo de Usuario: 4.Product Owner
+
+
+-Ruta Retrospectiva: main/resources/Retrospectiva_Grupo.docx
+
+
+Participantes:
+	Victor Salas
+	Darius Sobouti
+	Alberto Pachon
 
 
 
